@@ -1,16 +1,16 @@
 module.exports = class User{
-    constructor(email, first_name, last_name, password) {
-            let validationMessageUser = User.validate(email, first_name, last_name, password);
+    constructor(first_name, last_name, email, password) {
+            let validationMessageUser = User.validate(first_name, last_name, email, password);
             if(validationMessageUser !== '')
                 throw validationMessageUser;
 
-            this.email = email;
             this.first_name = first_name;
             this.last_name = last_name;
+            this.email = email;
             this.password = password;
     }
 
-    static validate(email, first_name, last_name, password){
+    static validate(first_name, last_name, email, password){
         if(!([email, first_name, last_name, password].every(arg => typeof arg === 'string')))
             return 'Parameters are not strings';
         if(!/^.+@.+\..+$/.test(email))
@@ -30,8 +30,13 @@ module.exports = class User{
         return users.find(user => user.email === email);
     }
 
+    static doesExist(email){
+        return !!User.get(email);
+    }
+
     static add(email, first_name, last_name, password){
-        users.push(new User(email, first_name, last_name, password));
+        users.push(new User(first_name, last_name, email, password));
+        console.log(users);
     }
 };
 

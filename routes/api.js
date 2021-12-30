@@ -4,13 +4,14 @@ const createError = require("http-errors");
 const router = express.Router();
 
 router.get('/:email', (req, res, next) => {
-    let user = usersData.get(req.params.email);
-    res.json(user? user : {});
+    res.json({doesExist: usersData.doesExist(req.params.email)});
 });
 
 router.post('/addUser', (req, res, next) => {
     try{
-        usersData.add(req.session.userPartialData.email, req.session.userPartialData.first_name, req.session.userPartialData.last_name, req.body.password);
+        if(!req.session.cookie._expires)
+            throw 'Session expired';
+        usersData.add(req.body.email, req.body.first_name, req.body.last_name, req.body.password);
         res.redirect('/register/registered');
     }
     catch(e){

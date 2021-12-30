@@ -1,43 +1,55 @@
 'use strict';
+
 (() => {
-    const status = (response) => {
-        return (response.status >= 200 && response.status < 300)?
-            Promise.resolve(response) : Promise.reject(new Error(response.statusText));
+    const first_name_error_id = 'first_name_error';
+    const last_name_error_id = 'last_name_error';
+    const email_error_id = 'email_error';
+
+    const initErrors = () => {
+        return {first_name_error: {id: first_name_error_id, msg: ''},
+                last_name_error: {id: last_name_error_id, msg: ''},
+                email_error: {id: email_error_id, msg: ''}};
+    }
+
+    const validateInputs = (parameters, errors) => {
+        errors.first_name_error.msg = validatorModule.isEmpty(parameters.first_name);
+        errors.last_name_error.msg = validatorModule.isEmpty(parameters.last_name);
+        errors.email_error.msg = validatorModule.isEmpty(parameters.email);
+
+        if(errors.first_name_error.msg === '')
+            errors.first_name_error.msg = validatorModule.doesContainLettersOnly(parameters.first_name);
+        if(errors.last_name_error.msg === '')
+            errors.last_name_error.msg = validatorModule.doesContainLettersOnly(parameters.last_name);
+        if(errors.email_error.msg === '')
+            errors.email_error.msg = validatorModule.isEmailFormat(parameters.email);
     };
 
-    const checkIfEmailExists = (email) => {
-        return fetch('/api/' + email)
-            .then(status)
-            .then(res => res.json())
-            .then(res => res.email === email)
-            .catch((error) => console.log(error));
-    };
 
     document.addEventListener('DOMContentLoaded', () =>{
+        let errors = initErrors();
         document.addEventListener('submit', (event) => {
             event.preventDefault();
 
-            let email_error = document.getElementById('email_error');
-            email_error.classList.add('d-none');
+            errorsModule.hideErrors(errors);
 
             let form = document.querySelector('form');
             let formData = new FormData(form);
             let parameters = Object.fromEntries(formData);
-            Object.keys(parameters).forEach(key => parameters[key] = parameters[key].toLowerCase());
+            forEachObject(parameters, trimAndLowerCase);
 
-            let doesExists = checkIfEmailExists(parameters.email);
-            doesExists.then((doesExists) => {
-                if(!doesExists){
-                    form.submit();
-                }
-                else{
-                    email_error.innerHTML = 'This email is already in use';
-                    email_error.classList.remove('d-none');
-                }
-            });
+            validateInputs(parameters, errors);
 
-
-            //console.log(doesExists);
+            if(errors.email_error.msg === ''){
+                validatorModule.isEmailInUse(parameters.email).then((emailMsg) => {
+                    errors.email_error.msg = emailMsg;
+                    if(!errorsModule.areThereErrors(errors))
+                        form.submit();
+                    else
+                        errorsModule.showErrors(errors);
+                });
+            }
+            else
+                errorsModule.showErrors(errors);
         });
     });
 })();

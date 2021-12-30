@@ -6,6 +6,7 @@
     "start": "node bin/www"
   },
   "dependencies": {
+    "connect-session-sequelize": "^7.1.2",
     "cookie-parser": "~1.4.4",
     "debug": "^4.3.3",
     "ejs": "^3.1.6",
