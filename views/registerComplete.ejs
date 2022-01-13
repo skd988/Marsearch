@@ -9,13 +9,15 @@
 </head>
 <body>
     <%- include('includes/rounded_container_start.ejs') %>
-                <%if(success){%>
-                    <h1 class="text-center">Registered</h1>
-                    <h2>You have successfully registered!</h2>
-                <%}else{%>
-                    <h1 class="text-center">Failed to register</h1>
-                    <h2>Error: <%= msg %></h2>
-                <%}%>
-                <h6><a href="/">Click to log in</a></h6>
+       <h1 class="text-center">MarSearch</h1>
+
+        <%if(success){%>
+            <h2 class="text-center">Registered</h2>
+            <h3>You have successfully registered!</h3>
+        <%}else{%>
+            <h2 class="text-center">Failed to register</h2>
+            <h3>Error: <%= msg %></h3>
+        <%}%>
+        <h6><a href="/">Click to log in</a></h6>
     <%- include('includes/rounded_container_end.ejs') %>
 <%- include('includes/end.ejs') %>
