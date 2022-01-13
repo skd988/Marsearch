@@ -1,0 +1,138 @@
+<%- include('includes/head.ejs') %>
+    <script src="/js/ajax.js"></script>
+    <script src="/js/errorHandler.js"></script>
+    <script src="/js/utilities.js"></script>
+    <script src="/js/marsearch.js"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>Marsearch</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-center mb-3 background-mars">
+            <div class="col-10 col-md-8 col-lg-6">
+                <div class="alert alert-light my-5">
+                    <h1 class="title text-center">MarSearch</h1>
+                    <h3 class="title text-center">Search pictures of Mars!</h3>
+                    <h4 class="title text-center">Welcome, <%=name%></h4>
+                    <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#about_modal">Who Is Submitting</button>
+                            <pre>   </pre>
+                            <a href="/users/api/logout" class="btn btn-primary">Log out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%- include('includes/loading_gif.ejs') %>
+
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <form>
+                    <div class="alert alert-primary">
+                        <h3 class="title">Search for Mars images:</h3>
+                    </div>
+                    <div class="my-3">
+                        <h5><label class="form-label" for="sol_or_date">Date (YYYY-MM-DD) or Sol number:</label></h5>
+                        <input id="sol_or_date" name="sol_or_date" class="form-control form-control-lg" type="text">
+                        <h6 id="sol_or_date_error" class="error title d-none text-danger"></h6>
+                    </div>
+                    <div class="my-3">
+                        <h5><label class="form-label" for="rovers">Select rover:</label></h5>
+                        <select id="rovers" name="rover" class="form-control form-control-lg">
+                            <option value="">Choose a rover</option>
+                            <option value="Curiosity">Curiosity</option>
+                            <option value="Opportunity">Opportunity</option>
+                            <option value="Spirit">Spirit</option>
+                        </select>
+                        <h6 id="rover_error" class="error title d-none text-danger"></h6>
+                    </div>
+                    <div class="my-3">
+                        <h5><label class="form-label" for="camera">Select camera:</label></h5>
+                        <select id="camera" name="camera" class="form-control form-control-lg">
+                            <option value="">Choose a camera</option>
+                            <option value="FHAZ">FHAZ</option>
+                            <option value="RHAZ">RHAZ</option>
+                            <option value="MAST">MAST</option>
+                            <option value="CHEMCAM">CHEMCAM</option>
+                            <option value="MAHLI">MAHLI</option>
+                            <option value="MARDI">MARDI</option>
+                            <option value="NAVCAM">NAVCAM</option>
+                            <option value="PANCAM">PANCAM</option>
+                            <option value="MINITES">MINITES</option>
+                        </select>
+                        <h6 id="camera_error" class="error title d-none text-danger"></h6>
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-primary btn-lg m-2" type="submit">Search</button>
+                        <button class="btn btn-primary btn-lg m-2" type="reset">Clear</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="alert alert-primary">
+                    <h3 class="title">Saved Images:</h3>
+                </div>
+                <ol id="saved_images">
+
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-primary">
+                    <h3>Search Results:</h3>
+                </div>
+            </div>
+        </div>
+        <div id="results" class="row">
+
+        </div>
+        <div id="fetch_error" class="row d-none">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="alert alert-danger"><h3>NASA servers are not available right now, please try again later</h3></div>
+            </div>
+        </div>
+        <div id="no_images" class="row d-none">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="alert alert-warning"><h3>No images found!</h3></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal-Submission -->
+    <div class="modal fade" id="about_modal" tabindex="-1" aria-labelledby="about_modal_label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="about_modal_label">Submission Info</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Name: Shaked Stossel<br/>
+                        Email: skd988@gmail.com<br/>
+                        ID: 208672139</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal-Already-Saved -->
+    <div class="modal fade" id="already_saved_modal" tabindex="-1" aria-labelledby="already_saved_modal_label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alreadySavedModalLabel">Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>The image is already saved</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<%- include('includes/end.ejs') %>

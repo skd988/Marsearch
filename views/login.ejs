@@ -1,27 +1,27 @@
-    <%- include('includes/head.ejs') %>
+<%- include('includes/head.ejs') %>
     <title>Log in</title>
-    </head>
-    <body>
-    <div class="container-fluid ">
-        <div class="row justify-content-center">
-            <div class="col-4 border rounded">
-                <h1 class="text-center">Log in</h1>
-                <form method="post" action="/login">
-                    <div class="mb-3">
-                        <h5><label class="form-label" for="username">Email:</label></h5>
-                        <input id="username" name="email" type="email" class="form-control form-control-md" type="text">
-                    </div>
-                    <div class="mb-3">
-                        <h5><label class="form-label" for="password">Password:</label></h5>
-                        <input id="password" name="password" type="password" class="form-control form-control-md" type="text">
-                    </div>
-                    <div class="mb-3">
-                        <button type="submit" class="btn btn-primary">Log in</button>
-                    </div>
-                </form>
-                <h6><a href="/register">Click to register</a></h6>
+</head>
+<body>
+    <%- include('includes/rounded_container_start.ejs') %>
+        <h1 class="text-center">Log in</h1>
+        <form method="post" action="/users/api/login">
+            <div class="mb-3">
+                <h5><label class="form-label" for="username">Email:</label></h5>
+                <input required id="username" name="email" type="email" class="form-control form-control-md" type="text">
             </div>
-        </div>
-    </div>
-
+            <div class="mb-3">
+                <h5><label class="form-label" for="password">Password:</label></h5>
+                <input required id="password" name="password" type="password" class="form-control form-control-md" type="text">
+            </div>
+            <% if(failed){ %>
+                <div class="mb-3">
+                    <h6 class="text-danger">Invalid e-mail or password</h6>
+                </div>
+            <% }%>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Log in</button>
+            </div>
+        </form>
+        <h6><a href="/register">Click to register</a></h6>
+    <%- include('includes/rounded_container_end.ejs') %>
 <%- include('includes/end.ejs') %>

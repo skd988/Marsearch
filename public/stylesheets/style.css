@@ -1,8 +1,8 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.in-front {
+  z-index: 1;
+  position: fixed;
+  top: 20%;
 }
-
-a {
-  color: #00B7FF;
+.background-mars {
+  background-image: url(/images/mars.jpeg);
 }

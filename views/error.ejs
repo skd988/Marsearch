@@ -1,3 +1,15 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Error</title>
+</head>
+<body>
+    <h1><%= error.status %></h1>
+    <h1><%= error.statusText %></h1>
+    <pre><%= error.stack %></pre>
+    <a href="/">back to login</a>
+</body>
+</html>

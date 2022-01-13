@@ -5,8 +5,14 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
 const indexRouter = require('./routes/index');
-const apiRouter = require('./routes/api');
+const userApiRouter = require('./routes/api/users_api');
+const imageApiRouter = require('./routes/api/images_api');
 const registerRouter = require('./routes/register');
+const user_sequelize = require('./users_database')
+const image_sequelize = require('./images_database')
+
+user_sequelize.sync().then(()=>{ console.log("Connected to users database successfully")});
+image_sequelize.sync().then(()=>{ console.log("Connected to images database successfully")});
 
 const app = express();
 
@@ -31,7 +37,8 @@ app.use(session({
 
 app.use('/', indexRouter);
 app.use('/register', registerRouter);
-app.use('/api', apiRouter);
+app.use('/users/api', userApiRouter);
+app.use('/images/api', imageApiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -39,11 +46,10 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   // set locals, only providing error in development
-  res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+  res.locals.error.message = err.message;
   // render the error page
   res.status(err.status || 500);
   res.render('error');

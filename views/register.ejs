@@ -1,35 +1,35 @@
-    <%- include('includes/head.ejs') %>
-        <script src="/js/inputHandler.js"></script>
-        <script src="/js/register.js"></script>
-        <title>Register</title>
-    </head>
-    <body>
-    <div class="container-fluid ">
-        <div class="row justify-content-center">
-            <div class="col-4 border rounded">
-                <h1 class="text-center">Register</h1>
-                <form method="post" action="/register/savePartialUserData" novalidate>
-                    <div class="mb-3">
-                        <h5><label class="form-label" for="first_name">First Name:</label></h5>
-                        <input id="first_name" name="first_name" type="text" class="form-control form-control-md">
-                        <h6 id="first_name_error" class="text-danger d-none"></h6>
-                    </div>
-                    <div class="mb-3">
-                        <h5><label class="form-label" for="last_name">Last Name:</label></h5>
-                        <input id="last_name" name="last_name" type="text" class="form-control form-control-md">
-                        <h6 id="last_name_error" class="text-danger d-none"></h6>
-                    </div>
-                    <div class="mb-3">
-                        <h5><label class="form-label" for="email">Email:</label></h5>
-                        <input id="email" name="email" type="email" class="form-control form-control-md">
-                        <h6 id="email_error" class="text-danger d-none"></h6>
-                    </div>
-                    <div class="mb-3">
-                        <button type="submit" class="btn btn-primary">Continue</button>
-                    </div>
-                </form>
-                <h6><a href="/">Click to log in</a></h6>
+<%- include('includes/head.ejs') %>
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <script src="/js/ajax.js"></script>
+    <script src="/js/errorHandler.js"></script>
+    <script src="/js/utilities.js"></script>
+    <script src="/js/register.js"></script>
+    <title>Register</title>
+</head>
+<body>
+    <%- include('includes/loading_gif.ejs') %>
+    <%- include('includes/rounded_container_start.ejs') %>
+        <h1 class="text-center">Register</h1>
+        <form method="post" action="/register/savePartialUserData" novalidate>
+            <div class="mb-3">
+                <h5><label class="form-label" for="first_name">First Name:</label></h5>
+                <input id="first_name" name="first_name" type="text" class="form-control form-control-md">
+                <h6 id="first_name_error" class="error text-danger d-none"></h6>
             </div>
-        </div>
-    </div>
+            <div class="mb-3">
+                <h5><label class="form-label" for="last_name">Last Name:</label></h5>
+                <input id="last_name" name="last_name" type="text" class="form-control form-control-md">
+                <h6 id="last_name_error" class="error text-danger d-none"></h6>
+            </div>
+            <div class="mb-3">
+                <h5><label class="form-label" for="email">Email:</label></h5>
+                <input id="email" name="email" type="email" class="form-control form-control-md">
+                <h6 id="email_error" class="error text-danger d-none"></h6>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Continue</button>
+            </div>
+        </form>
+        <h6><a href="/">Click to log in</a></h6>
+    <%- include('includes/rounded_container_end.ejs') %>
 <%- include('includes/end.ejs') %>
