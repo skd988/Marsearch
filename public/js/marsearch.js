@@ -9,8 +9,8 @@ const APIKEY = "K92Nno388S69TYpAUyZaIhweT9oQioaW8gdDTzdj";
     const validator = (() => {
         const INVALID_SOL_OR_DATE_ERROR_MSG = 'Please enter a valid date or sol number';
         const INVALID_SOL_FOR_ROVER_ERROR_MSG = 'Must enter sol number less than or equal to ';
-        const LATE_DATE_FOR_ROVER_ERROR_MSG = 'Must enter date that is earlier than '
-        const EARLY_DATE_FOR_ROVER_ERROR_MSG = 'Must enter date that is after '
+        const LATE_DATE_FOR_ROVER_ERROR_MSG = 'Must enter date that is earlier than or equals to '
+        const EARLY_DATE_FOR_ROVER_ERROR_MSG = 'Must enter date that is after or equals to '
         const REQUIRED_ERROR_MSG = 'Required';
 
         const DATE_FORMAT = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
