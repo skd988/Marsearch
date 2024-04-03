@@ -2,7 +2,7 @@
 # ex4-nodejs
 <h1>marsearch</h1>
 <p>
-This project is both the client side and server side of a website for searching pictures of mars from NASA's API.
+This project is both the client side and server side of a website for searching pictures of Mars from NASA's API.
 The website requires you to register a new user and log in, providing email, password and full name.
 Once you log in you are presented with 'MarSearch' webpage.
 This webpage allows you to search for pictures of Mars.
